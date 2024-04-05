@@ -1,4 +1,3 @@
-import os
 class Flames:
     name1 = ""
     name2 = ""
@@ -6,7 +5,7 @@ class Flames:
 
 
     def __init__(self, name1=None, name2=None):
-        os.system("cls")
+        cls_scr()
         if name1 is None and name2 is None:
             self.name1 = input("Enter your name >> ").upper().replace(" ", "")
             self.name2 = input("Enter your partner's name >> ").upper().replace(" ", "")
@@ -134,6 +133,10 @@ class Flames:
         print("╚" + border + "╝")
 
 
+def cls_scr():
+    print("\033[H\033[2J", end='')
+
+    
 run = True
 while (run):
     couple = Flames()
