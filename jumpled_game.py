@@ -1,7 +1,11 @@
 import random
 import os
-import msvcrt
-getch = msvcrt.getch
+
+def clrscr():
+    if os.name == "nt":
+        clrscr()
+    else:
+        os.system("clear")
 
 def get_player_input(player_name, word):
     print(f"{player_name}, your turn!", end="\n\n")
@@ -9,11 +13,11 @@ def get_player_input(player_name, word):
     if answer.lower() == word:
         return 1
     if answer.lower() == "#show":
-        os.system("cls")
+        clrscr()
         print(f"The mystry word is {word.capitalize()}!!", end="\n\n")
         return -1
     else:
-        os.system("cls")
+        clrscr()
         print("Sorry wrong guess!!", end="\n\n")
         return 0
     
@@ -50,8 +54,9 @@ def continue_game(prompt, word=""):
         return False
         
 def process_name(p1name, p2name):
-    while (1):
-        os.system('cls')
+    run = True
+    while (run):
+        clrscr()
         p1name = input("Enter your name player 1: ")
         p2name = input("Enter your name player 2: ")
         p1name = p1name.capitalize()
@@ -63,10 +68,11 @@ def process_name(p1name, p2name):
             ch = input("Would like to change your name? (Y/N) >> ")
             if ch == 'N' or ch == 'n':
                 print("\nWell, I warned you!! (GOOD LUCK)", end="\n\n")
-                print("Press any key to continue...", end="\n\n")
-                getch()
-                break
-    os.system('cls')
+                input("Press Enter to exit...")
+            else:
+                continue
+        run = False
+    clrscr()
     return p1name, p2name
     
     
@@ -107,7 +113,7 @@ def play():
                 else:
                     if no_turns > 3:
                         round_run = continue_game("Would you like to continue? (Y/N) >> ", word)
-                        os.system("cls")
+                        clrscr()
                         no_turns = 0
                 turn = turn % 2 + 1
             if round_run:
@@ -115,11 +121,10 @@ def play():
             else:
                 round_run = False
                 game_run = continue_game("Would you like to start another game? (Y/N) >> ")
-                os.system("cls")
+                clrscr()
         if not game_run:
             thank(p1name, p2name, p1points, p2points)
-            print("Press any key to exit...")
-            getch()
+            input("Press Enter to exit...")
 
 
 play()
